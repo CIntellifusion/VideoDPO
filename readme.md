@@ -59,8 +59,9 @@ Recent progress in generative diffusion models has greatly advanced text-to-vide
 The dataset vidpro-vc2-dataset has been released at [OneDrive](https://hkustconnect-my.sharepoint.com/:f:/g/personal/rliuay_connect_ust_hk/Em2rRAQarwhLkYsT9N__OoIBMkg1-V_myKsV-XkH9U3HoA?e=hjJfkA).
 
 ## prepare environments 
+
 ```shell
-conda create -n videodpo python=3.10 -y
+conda create -n videodpo python=3.11 -y
 conda activate videodpo
 pip install -r requirements.txt
 ```
@@ -74,6 +75,7 @@ mkdir -p checkpoints/vc2
 wget -P checkpoints/vc2 https://huggingface.co/VideoCrafter/VideoCrafter2/resolve/main/model.ckpt
 python utils/create_ref_model.py
 ```
+
 ### T2V-Turbo(V1)
 
 T2V-Turbo is latent consistency model. We provide finetuning LCM based on VC2. Please download vc2 checkpoints first. And then run: 
@@ -89,6 +91,8 @@ or u could also add dataset with same structure in configs/dpo/vidpro/train_data
 
 > to reduce peak memory use in training stage, we recommend to disable validation by not providing val_data.yaml.
 
+
+### 
 
 ## Finetune VideoCrafter2
 ```shell
@@ -118,6 +122,7 @@ We could automatically remove training logs without any checkpoints saved.
 ```bash 
 python utils/clean_results.py -d ./results 
 ```
+
 # 🍎Results
 
 ![image](https://github.com/user-attachments/assets/ccddbd49-fbb4-4b05-a7e6-0c9bff41eb31)
