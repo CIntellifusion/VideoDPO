@@ -1,13 +1,13 @@
 #!/bin/bash
-export CUDA_VISIBLE_DEVICES=0,1,2,3
+export CUDA_VISIBLE_DEVICES=1,2,3
 # === Configuration ===
 # wget https://huggingface.co/datasets/Haoyuwu/VideoDPODataset/resolve/main/vidpro10k-short-cogvideo.tar?download=true  
 # tar -xvf vidpro10k-short-cogvideo.tar
 video_dir="vidpro10k-short-cogvideo"
 eval_dir="vidpro10k-short-cogvideo/scores"
 # we provide a mini dataset for test code 
-# video_dir="vidpro-test"
-# eval_dir="vidpro-test/scores"
+video_dir="vidpro-test"
+eval_dir="vidpro-test/scores"
 DIMENSION="dynamic_degree motion_smoothness subject_consistency overall_consistency aesthetic_quality imaging_quality temporal_flickering"
 start_idx=0
 PROMPT_FILE=${PROMPT_FILE:-""}  # 允许外部设置 PROMPT_FILE，默认为空
@@ -46,6 +46,18 @@ process_subfolder() {
 }
 
 # === Main Loop ===
-for subfolder in $(ls "$video_dir"); do
-    process_subfolder "$subfolder"
-done
+# for subfolder in $(ls "$video_dir"); do
+#     process_subfolder "$subfolder"
+# done
+
+filter_ratio=0
+mkdir omniscore_feedback
+
+python select_pairs.py  --result_root_folder omniscore_feedback/ \
+    --eval_score_folder $eval_dir \
+    --video_root_folder $video_dir \
+    --dimensions total_score \
+    --promptlist $PROMPT_FILE \
+    --filter_ratio $filter_ratio 
+
+python pair_prob.py --metadata_root $video_dir/total_score_"$filter_ratio"P_vbscore --score_path $eval_dir
