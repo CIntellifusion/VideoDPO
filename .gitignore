@@ -4,6 +4,7 @@
 *.egg-info
 __pycache__
 
+OmniScore/vidpro-test/scores/
 .ipynb_checkpoints
 ckpts
 results
