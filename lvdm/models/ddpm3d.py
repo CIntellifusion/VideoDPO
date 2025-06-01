@@ -1125,7 +1125,6 @@ class LatentDiffusion(DDPM):
         return loss, loss_dict
 
     def training_step(self, batch, batch_idx):
-        print("test")
         loss, loss_dict = self.shared_step(
             batch, random_uncond=self.classifier_free_guidance
         )
