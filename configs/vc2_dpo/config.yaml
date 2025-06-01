@@ -99,7 +99,7 @@ data:
       target: data.video_data.TextVideoDPO
       params:
         dupbeta: 0 # dpo config ; if dupbeta ==0  , score will not be required
-        data_root: configs/dpo/vidpro/train_data.yaml
+        data_root: configs/vc2_dpo/vidpro/train_data.yaml
         resolution: [320, 512]
         video_length: 16
         subset_split: all

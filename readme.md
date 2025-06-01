@@ -92,20 +92,35 @@ or u could also add dataset with same structure in configs/dpo/vidpro/train_data
 > to reduce peak memory use in training stage, we recommend to disable validation by not providing val_data.yaml.
 
 
-### 
+## Download Dataset
 
-## Finetune VideoCrafter2
-```shell
+The VC2 and CogVideo datasets are hosted on Hugging Face:
+
+https://huggingface.co/datasets/Haoyuwu/VideoDPODataset
+
+To download:
+```bash
+bash scripts_sh/download_dataset.sh
+```
+
+## Finetune VideoCrafter2 with DPO
+
+### Step 1: Download Checkpoints
+```bash
+bash scripts_sh/download_checkpoints.sh
+```
+
+### Step 2: Start Training
+```bash
 bash configs/vc_dpo/run.sh
 ```
 
-## Inference VideoCrafter2
-We support inference with different types of inputs and outputs.
-We support both json and text formats to read prompts. 
+Configuration files:
+- `configs/vc2_dpo/vidpro/train_data.yaml`
+- `configs/vc2_dpo/config.yaml`
 
-```shell
-bash script_sh/inference_t2v.sh
-```
+
+
 ## Finetune T2V-Turbo(V1)
 ```shell
 bash configs/t2v_turbo_dpo/run.sh

@@ -3,7 +3,7 @@ export OMP_NUM_THREADS=4
 current_time=$(date +%Y%m%d%H%M%S)
 
 EXPNAME="dpo-train"
-CONFIG='configs/dpo/config.yaml' # experiment config 
+CONFIG='configs/vc2_dpo/config.yaml' # experiment config 
 LOGDIR="./results/dpo-vc2-1th"   # experiment saving directory all should under subfolder so that won't be copied to codeversion
 
 
