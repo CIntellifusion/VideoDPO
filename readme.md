@@ -56,15 +56,28 @@ Recent progress in generative diffusion models has greatly advanced text-to-vide
 
 ## Dataset 
 
-The dataset vidpro-vc2-dataset has been released at [OneDrive](https://hkustconnect-my.sharepoint.com/:f:/g/personal/rliuay_connect_ust_hk/Em2rRAQarwhLkYsT9N__OoIBMkg1-V_myKsV-XkH9U3HoA?e=hjJfkA).
+The VC2 and CogVideo datasets are hosted on Hugging Face: https://huggingface.co/datasets/Haoyuwu/VideoDPODataset
 
-## prepare environments 
+## Prepare Environments 
 
 ```shell
 conda create -n videodpo python=3.11 -y
 conda activate videodpo
 pip install -r requirements.txt
 ```
+
+## Quick Start: DPO training on VideoCrafter2 
+
+```bash
+bash scripts_sh/download_dataset.sh
+bash scripts_sh/download_checkpoints.sh
+bash configs/vc_dpo/run.sh
+```
+
+Configuration files:
+- `configs/vc2_dpo/vidpro/train_data.yaml`
+- `configs/vc2_dpo/config.yaml`
+
 
 ## prepare checkpoints
 ### VideoCrafter2
@@ -84,47 +97,14 @@ mkdir -p checkpoints/t2v-turbo
 wget -O checkpoints/t2v-turbo/unet_lora.pt "https://huggingface.co/jiachenli-ucsb/T2V-Turbo-VC2/resolve/main/unet_lora.pt?download=true"
 ```
 
-## Prepare Training Data 
-download vidpro-vc2-dataset.tar from the following link. 
-then ln -s the dataset to /data/vidpro-dpo-dataset.
-or u could also add dataset with same structure in configs/dpo/vidpro/train_data.yaml
-
 > to reduce peak memory use in training stage, we recommend to disable validation by not providing val_data.yaml.
-
-
-## Download Dataset
-
-The VC2 and CogVideo datasets are hosted on Hugging Face:
-
-https://huggingface.co/datasets/Haoyuwu/VideoDPODataset
-
-To download:
-```bash
-bash scripts_sh/download_dataset.sh
-```
-
-## Finetune VideoCrafter2 with DPO
-
-### Step 1: Download Checkpoints
-```bash
-bash scripts_sh/download_checkpoints.sh
-```
-
-### Step 2: Start Training
-```bash
-bash configs/vc_dpo/run.sh
-```
-
-Configuration files:
-- `configs/vc2_dpo/vidpro/train_data.yaml`
-- `configs/vc2_dpo/config.yaml`
-
 
 
 ## Finetune T2V-Turbo(V1)
 ```shell
 bash configs/t2v_turbo_dpo/run.sh
 ```
+
 
 ## Inference T2V-Turbo(V1)
 ```shell
@@ -134,6 +114,7 @@ bash configs/t2v_turbo_dpo/turbo_visualize.sh
 ## Helper Functions
 besides, we also provide some useful tools to improve your finetuning experiences. 
 We could automatically remove training logs without any checkpoints saved. 
+
 ```bash 
 python utils/clean_results.py -d ./results 
 ```
